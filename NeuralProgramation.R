@@ -1,3 +1,4 @@
+
 ##### Initialization of parameter values
 initialisation<-function(x){
   W= matrix( runif(dim(x)),nrow =dim(x)[2],ncol = 1)
@@ -88,4 +89,4 @@ artificial_neural<-function(X,y,learning_rate,n_iter=1000){
   return(list(W=W,b=b,Loss=Loss,A=A))
 }
 
-artificial_neural(X,y,learning_rate = 0.5  ,n_iter=150)
+artificial_neural(X,y,learning_rate = 0.1  ,n_iter=150)
