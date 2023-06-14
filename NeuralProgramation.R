@@ -1,4 +1,4 @@
-##### Initialisation des valeurs des parametres
+##### Initialization of parameter values
 initialisation<-function(x){
   W= matrix( runif(dim(x)),nrow =dim(x)[2],ncol = 1)
   b= vector("numeric",  dim(x)[2]  )
@@ -6,21 +6,21 @@ initialisation<-function(x){
 }
 
 
-##### definition de la descente de gradient
+##### gradient descent function definition
 gradient<-function(A,X,y){
   dW=(1/dim(y)[1])*(t( X)  %*%(A-y))
   db=(1/dim(y)[1])* sum(A-y)
   list(dW,db)
 }
 
-###### Definition du modele
+###### Model definition
 modelss<-function(X,W,b){
   Z=X  %*%W + b
   A= 1/(1+exp(-Z))
   return(A)
 }
 
-##
+
 
 
 ######### Cost function
@@ -38,7 +38,7 @@ updatess<-function(dW,db,W,b,learning_rate){
 }
 
 
-#####Fonction de prediction
+##### Prediction function
 predicts<- function(X,W,b){
   P=modelss(X,W,b)
   P=as.data.frame (P)
@@ -53,9 +53,9 @@ predicts<- function(X,W,b){
 
 
 
-########## Le reseau de neurone artificiel
+########## Artificial neural
 
-artificial_neurone<-function(X,y,learning_rate,n_iter=1000){
+artificial_neural<-function(X,y,learning_rate,n_iter=1000){
   
   #initialisation
   s=initialisation(X)
@@ -78,13 +78,14 @@ artificial_neurone<-function(X,y,learning_rate,n_iter=1000){
   print(W)
   print(b)
   
+  # How can I use ggplot to plot the cost?
   #da=c(Loss,1:n_iter)
   #p<-ggplot(da)%>% aes(x=1:n_iter,y=Loss)%>%geom_line()
   #p
   #figure=ploot(da,x=1:n_iter,y=Loss)
-  plot(x=1:n_iter,y=Loss,type="l",col="red", lwd = 1,xlab="Nombre d'iteration", 
-       ylab="Cout")
+  plot(x=1:n_iter,y=Loss,type="l",col="red", lwd = 1,xlab="Number of iteration", 
+       ylab="The cost")
   return(list(W=W,b=b,Loss=Loss,A=A))
 }
 
-artificial_neurone(X,y,learning_rate = 0.5  ,n_iter=150)
+artificial_neural(X,y,learning_rate = 0.5  ,n_iter=150)
