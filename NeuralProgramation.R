@@ -4,38 +4,39 @@ initialisation<-function(x){
   b= vector("numeric",  dim(x)[2]  )
   list(W,b)
 }
-initialisation<-cmpfun(initialisation)
+
+
 ##### definition de la descente de gradient
 gradient<-function(A,X,y){
   dW=(1/dim(y)[1])*(t( X)  %*%(A-y))
   db=(1/dim(y)[1])* sum(A-y)
   list(dW,db)
 }
-gradient<-cmpfun(gradient)
+
 ###### Definition du modele
 modelss<-function(X,W,b){
   Z=X  %*%W + b
   A= 1/(1+exp(-Z))
   return(A)
 }
-modelss<-cmpfun(modelss)
+
 ##
 
 
-######### Fonction de log-vraisemblance
+######### Cost function
 
 log_loss<-function(A,y){
   o<-(1 / dim(y)[1]) * sum(-y * log(A) - (1 - y) * log(1 - A ))
   o
 }
-log_loss<-cmpfun(log_loss)
-### Fonction de mise a jour des parametres 
+
+### Updating function 
 updatess<-function(dW,db,W,b,learning_rate){
   W=W-learning_rate*dW
   b=b-learning_rate*db
   list(W,b)
 }
-updatess<-cmpfun(updatess)
+
 
 #####Fonction de prediction
 predicts<- function(X,W,b){
@@ -49,8 +50,7 @@ predicts<- function(X,W,b){
   
   return(P)
 }
-library(compiler)
-predicts<- cmpfun(predicts)
+
 ######### La fonction de la matrice de confusion
 matConf<- function(data=NULL,obs,pred,plot=TRUE,
                    unit = "count",
