@@ -51,24 +51,6 @@ predicts<- function(X,W,b){
   return(P)
 }
 
-######### La fonction de la matrice de confusion
-matConf<- function(data=NULL,obs,pred,plot=TRUE,
-                   unit = "count",
-                   colors = c(low = NULL, high = NULL),
-                   print_metrics = TRUE,
-                   metrics_list = c("accuracy", "precision", "recall"),
-                   position_metrics = "top",
-                   na.rm = TRUE){
-  library(metrica)
-  c<-metrica::confusion_matrix(data,obs,pred,plot,
-                               unit = "count",
-                               colors = c(low = NULL, high = NULL),
-                               print_metrics = TRUE,
-                               metrics_list = c("accuracy", "precision", "recall"),
-                               position_metrics = "top",
-                               na.rm = TRUE )
-  return(c)
-}
 
 
 ########## Le reseau de neurone artificiel
@@ -106,5 +88,3 @@ artificial_neurone<-function(X,y,learning_rate,n_iter=1000){
 }
 
 artificial_neurone(X,y,learning_rate = 0.5  ,n_iter=150)
-library(microbenchmark)
-system.time (artificial_neurone(X,y,learning_rate = 0.1  ,n_iter=1500))
