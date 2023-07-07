@@ -69,6 +69,7 @@ p<-ggplot(pldf) +
   geom_line(aes(x1,x2), color="black", linetype=1,size=1)
 
 p
+
 ## The cost function continues to decrase. This inplies that the learning is not yet finished and that 
 # we can therefore do better
 # We can see that two flowers were misclassified in the learning
