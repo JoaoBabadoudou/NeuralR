@@ -7,7 +7,7 @@ library(caret)
 library(dplyr)
 library(metrica)
 
-
+#########################################################################
 
 
 df=iris#Load the dataset
@@ -43,7 +43,9 @@ X_test=as.matrix(test[,c(1,4)])
 y_test=as.matrix(test[,5])
 
 
-#### Application with 100 iteration
+
+
+#################################### Application with 100 iteration
 
 a=artificial_neural(X,y,learning_rate = 0.1  ,n_iter=100)
 # We will represent our training set and draw the decision boundary after the training
