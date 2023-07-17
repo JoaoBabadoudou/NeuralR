@@ -153,10 +153,10 @@ neural_network<-function(X,y,n1=2,learning_rate,n_iter=1000){
   
   cat("        The accuracy is :", Accuracy )
   da=c(Loss,1:n_iter)
-  p<-ggplot2::ggplot(da)%>% aes(x=1:n_iter,y=Loss)%>%geom_line()
-  p
+  # p<-ggplot2::ggplot(da)%>% aes(x=1:n_iter,y=Loss)%>%geom_line()
+  # p
   #figure=ploot(da,x=1:n_iter,y=Loss)
-  # plot(x=1:n_iter,y=Loss,type="l",col="red", lwd = 1,xlab="Nombre d'iteration", 
-       # ylab="Cout")
+  plot(x=1:n_iter,y=Loss,type="l",col="red", lwd = 1,xlab="Nombre d'iteration", 
+        ylab="Cout")
   return(list(Parameters=parametres, A=activations[[2]], prediction=y_pred))
 }
