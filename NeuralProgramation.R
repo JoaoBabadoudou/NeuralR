@@ -65,10 +65,6 @@ accuracy<-function (data = NULL, obs, pred, tidy = FALSE, na.rm = TRUE)
   accuracy <- correct/total
   return(accuracy)
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 0637ac59f7b025070f6dd9a7fa355697cc2ccc7a
 
 
 ########## Artificial neural
@@ -95,10 +91,7 @@ artificial_neural<-function(X,y,learning_rate,n_iter=1000){
   y_pred=predicts(X,W,b)
   Accuracy=accuracy(obs=y, pred = y_pred)
   cat("        The accuracy is :", Accuracy )
-<<<<<<< HEAD
-=======
-  
->>>>>>> 0637ac59f7b025070f6dd9a7fa355697cc2ccc7a
+
   # How can I use ggplot to plot the cost?
   #da=c(Loss,1:n_iter)
   #p<-ggplot(da)%>% aes(x=1:n_iter,y=Loss)%>%geom_line()
