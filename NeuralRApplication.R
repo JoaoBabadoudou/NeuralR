@@ -24,7 +24,7 @@ df$Species_rec <- df$Species %>%
   as.numeric()
 df<-df[,-5]
 # Let's split our data, 80% for the training and 20% for testing
-split_size	=	0.8
+split_size	=	0.9
 sample_size	=	floor(split_size	*	nrow(df)) 
 set.seed(123)
 train_indices	<-	sample(seq_len(nrow(df)),	size	=	
@@ -36,10 +36,10 @@ test	<-	df[-train_indices,	]
 # for best representation
 
 ########Train
-X=as.matrix(train[,c(1,4)])
+X=as.matrix(train[,c(1,2)])
 y=as.matrix(train[,5])
 ######## Test
-X_test=as.matrix(test[,c(1,4)])
+X_test=as.matrix(test[,c(1,2)])
 y_test=as.matrix(test[,5])
 
 
