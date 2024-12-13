@@ -1,0 +1,56 @@
+---
+title: "The perceptron"
+---
+
+Let's start with an example.
+
+Let's suppose that we have two kind of plant that we have to divide into two classes: **toxic** plants represented by class **0** and **healthy** plants represented by class **1**. Each plant has his characteristics **X1** and **X2**. The following table show us what it is about:
+
+| Y  |X1 | X2|
+|----|---|---|
+| 1  |0.5| 2 |
+| 1  |1.1|2.1|
+| 1  |0.7|2.6|
+| 1  |2  | 1 |
+| 1  |2.5|0.7|
+| 1  |2.2|0.3|
+
+Let' us have a better look with a graphic
+
+
+```{r}
+library(ggplot2)
+x1= c(0.5,1.1,0.7,2,2.5,2.2)
+x2=c(2,2.1,2.6,1,0.7,0.3)
+y= factor(c(1,1,1,0,0,0), levels=c(0,1))
+Y=factor(y)
+data= data.frame(cbind(y,x1,x2)  ) 
+ggplot(data = data, aes(x = x1, y = x2)) +
+  geom_point(aes(colour = Y), size = 3) + 
+  scale_colour_manual(values = c("red", "green")) 
+  theme_minimal()
+```
+
+As we can see, we can provide a line that can separate the two kinds of plant. This line is **the decision boundary**. So we're able to develop a model, based on this line to predict the class of a new plant.
+```{r }
+library(ggplot2)
+x1= c(0.5,1.1,0.7,2,2.5,2.2,1.5)
+x2=c(2,2.1,2.6,1,0.7,0.3,0.5)
+y= factor(c(1,1,1,0,0,0,2), levels=c(0,1,2))
+Y=factor(y)
+data= data.frame(cbind(y,x1,x2)  ) 
+ggplot(data = data, aes(x = x1, y = x2)) +
+  geom_point(aes(colour = Y), size = 3) + 
+  scale_colour_manual(values = c("red", "green", "blue")) + 
+  geom_abline(slope = 1, intercept = 0.1, colour = "black", size = 1.2) + # Boundary line
+  labs(title = "Data separation", x = "x1", y = "x2") + 
+  theme_minimal()
+```
+
+
+To de velop the model, we need to know the equation of the line that separate accuratly the two plants. To achieve this, we'll develop a linear model by sending **X1** and **X2** to a neuron, adding a coefficient **W**, respectively **W1** and **W2** and what we call the bias **b**. It'll lead us to :
+
+$$  z(X1,X2)= W1*X1 + W2*X2 + b   $$
+
+
+

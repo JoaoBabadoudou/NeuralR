@@ -1,0 +1,5 @@
+---
+title: "About"
+---
+
+This site presents the perceptron used as the basis for artificial neural networks. We look in detail at how it's formed and some of the mathematical concepts behind it. 
