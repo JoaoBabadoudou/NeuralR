@@ -3,15 +3,20 @@ project:
 
 website:
 
-     favicon: LOGO1.png
-     title: "Neuron for dummy "
+     favicon: "D:/R_projet/NeuralR/Quato_/LOGO1.png"
+     title: "The Perceptron"
      navbar:
        left:
        - href: index.qmd
          text: Home
-       - about.qmd
+       
        -  href: index1.qmd
-          text: What's all about
+          text: Hands-on
+       right : 
+        
+       -  href: https://github.com/JoaoBabadoudou
+          icon: github
+       - about.qmd  
            
 
 format:

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The perceptron – Neuron for dummy</title>
+<title>The perceptron – The Perceptron</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,7 +30,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./LOGO1.png" rel="icon" type="image/png">
+<link href="./D:/R_projet/NeuralR/Quato_/LOGO1.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -104,35 +70,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -145,7 +82,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Neuron for dummy</span>
+    <span class="navbar-title">The Perceptron</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -159,12 +96,19 @@ window.Quarto = {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text">About</span></a>
+    <a class="nav-link" href="./index1.html"> 
+<span class="menu-text">Hands-on</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/JoaoBabadoudou"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./index1.html"> 
-<span class="menu-text">What’s all about</span></a>
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -203,397 +147,51 @@ window.Quarto = {
 </header>
 
 
-<p>The perceptron is a fundamental concept in artificial intelligence and machine learning. It’s a type of artificial neural network model introduced by <strong>Frank Rosenblatt</strong> in <strong>1958</strong>. At its core, the perceptron mimics how biological neurons function, using mathematical computations to classify data points as belonging to one of two categories.It is viewed as one of the earliest models for supervised learning in neural networks. Despite its simplicity, it laid the groundwork for more complex networks like multi-layer perceptrons, which can solve non-linear problems. While the perceptron itself only works well with linearly separable data, its advancements contributed significantly to the evolution of AI systems.</p>
-<p>Think of the perceptron as a simple decision-making tool. It takes input signals (features of the data), applies weights to them, sums them up, and passes the result through an activation function to produce an output. If the sum crosses a certain threshold, the perceptron “fires,” producing an output of 1; otherwise, it outputs 0. This makes it ideal for binary classification tasks.</p>
-<p>Well, in order to create an artificial neural network from scratch with R, we’re going to start with the perceptron, while recalling some important mathematical notions.</p>
-<p>Let’s start with an example.</p>
-<p>Let’s suppose that we have two kind of plant that we have to divide into two classes: <strong>toxic</strong> plants represented by class <strong>0</strong> and <strong>healthy</strong> plants represented by class <strong>1</strong>. Each plant has his characteristics <strong>X1</strong> and <strong>X2</strong>. The following table show us what it is about:</p>
+<p>The perceptron is a foundational building block in the fields of artificial intelligence and machine learning. First introduced by Frank Rosenblatt in 1958, it represents one of the earliest and simplest models for supervised learning in neural networks. The perceptron is inspired by the functioning of biological neurons, using mathematical computations to categorize data into one of two distinct classes. Though limited in its ability to handle only linearly separable data, this model has had a lasting impact, paving the way for more advanced architectures, such as multi-layer perceptrons, which can address non-linear problems and are widely used today.</p>
+<p>At its essence, the perceptron functions as a basic decision-making mechanism. It receives input signals—representing features of the data—applies weights to these inputs, calculates their weighted sum, and processes this sum through an activation function. If the result surpasses a predefined threshold, the perceptron “fires,” producing an output of 1; otherwise, it outputs 0. This characteristic makes the perceptron particularly suitable for binary classification tasks.</p>
+<p>To better understand the perceptron, let’s consider building a simple neural network in <strong>R</strong>, starting with this fundamental unit. We’ll also review some essential mathematical concepts as we proceed.</p>
+<p><strong>Example: Classifying Plants</strong></p>
+<p>Imagine a scenario where we have two types of plants that need to be classified into two categories:<br>
+- <strong>Toxic plants</strong>, represented by class 0<br>
+- <strong>Healthy plants</strong>, represented by class 1</p>
+<p>Each plant is characterized by two features, ( X_1 ) and ( X_2 ). The following table illustrates the dataset for this classification task:</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 34%">
+<col style="width: 34%">
+<col style="width: 15%">
+</colgroup>
 <thead>
 <tr class="header">
-<th>Y</th>
-<th>X1</th>
-<th>X2</th>
+<th><strong>Plant</strong></th>
+<th>( X_1 ) (Feature 1)</th>
+<th>( X_2 ) (Feature 2)</th>
+<th><strong>Class</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1</td>
-<td>0.5</td>
-<td>2</td>
+<td>Plant 1</td>
+<td>Value</td>
+<td>Value</td>
+<td>0</td>
 </tr>
 <tr class="even">
-<td>1</td>
-<td>1.1</td>
-<td>2.1</td>
-</tr>
-<tr class="odd">
-<td>1</td>
-<td>0.7</td>
-<td>2.6</td>
-</tr>
-<tr class="even">
-<td>1</td>
-<td>2</td>
+<td>Plant 2</td>
+<td>Value</td>
+<td>Value</td>
 <td>1</td>
 </tr>
 <tr class="odd">
-<td>1</td>
-<td>2.5</td>
-<td>0.7</td>
-</tr>
-<tr class="even">
-<td>1</td>
-<td>2.2</td>
-<td>0.3</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
 </tr>
 </tbody>
 </table>
-<p>Let’ us have a better look with a graphic</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>x1<span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">1.1</span>,<span class="fl">0.7</span>,<span class="dv">2</span>,<span class="fl">2.5</span>,<span class="fl">2.2</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>x2<span class="ot">=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="fl">2.1</span>,<span class="fl">2.6</span>,<span class="dv">1</span>,<span class="fl">0.7</span>,<span class="fl">0.3</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>y<span class="ot">=</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Y<span class="ot">=</span><span class="fu">factor</span>(y)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(y,x1,x2)  ) </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data, <span class="fu">aes</span>(<span class="at">x =</span> x1, <span class="at">y =</span> x2)) <span class="sc">+</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Y), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"green"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>List of 136
- $ line                            :List of 6
-  ..$ colour       : chr "black"
-  ..$ linewidth    : num 0.5
-  ..$ linetype     : num 1
-  ..$ lineend      : chr "butt"
-  ..$ arrow        : logi FALSE
-  ..$ inherit.blank: logi TRUE
-  ..- attr(*, "class")= chr [1:2] "element_line" "element"
- $ rect                            :List of 5
-  ..$ fill         : chr "white"
-  ..$ colour       : chr "black"
-  ..$ linewidth    : num 0.5
-  ..$ linetype     : num 1
-  ..$ inherit.blank: logi TRUE
-  ..- attr(*, "class")= chr [1:2] "element_rect" "element"
- $ text                            :List of 11
-  ..$ family       : chr ""
-  ..$ face         : chr "plain"
-  ..$ colour       : chr "black"
-  ..$ size         : num 11
-  ..$ hjust        : num 0.5
-  ..$ vjust        : num 0.5
-  ..$ angle        : num 0
-  ..$ lineheight   : num 0.9
-  ..$ margin       : 'margin' num [1:4] 0points 0points 0points 0points
-  .. ..- attr(*, "unit")= int 8
-  ..$ debug        : logi FALSE
-  ..$ inherit.blank: logi TRUE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ title                           : NULL
- $ aspect.ratio                    : NULL
- $ axis.title                      : NULL
- $ axis.title.x                    :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : NULL
-  ..$ hjust        : NULL
-  ..$ vjust        : num 1
-  ..$ angle        : NULL
-  ..$ lineheight   : NULL
-  ..$ margin       : 'margin' num [1:4] 2.75points 0points 0points 0points
-  .. ..- attr(*, "unit")= int 8
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi TRUE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ axis.title.x.top                :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : NULL
-  ..$ hjust        : NULL
-  ..$ vjust        : num 0
-  ..$ angle        : NULL
-  ..$ lineheight   : NULL
-  ..$ margin       : 'margin' num [1:4] 0points 0points 2.75points 0points
-  .. ..- attr(*, "unit")= int 8
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi TRUE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ axis.title.x.bottom             : NULL
- $ axis.title.y                    :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : NULL
-  ..$ hjust        : NULL
-  ..$ vjust        : num 1
-  ..$ angle        : num 90
-  ..$ lineheight   : NULL
-  ..$ margin       : 'margin' num [1:4] 0points 2.75points 0points 0points
-  .. ..- attr(*, "unit")= int 8
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi TRUE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ axis.title.y.left               : NULL
- $ axis.title.y.right              :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : NULL
-  ..$ hjust        : NULL
-  ..$ vjust        : num 1
-  ..$ angle        : num -90
-  ..$ lineheight   : NULL
-  ..$ margin       : 'margin' num [1:4] 0points 0points 0points 2.75points
-  .. ..- attr(*, "unit")= int 8
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi TRUE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ axis.text                       :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : chr "grey30"
-  ..$ size         : 'rel' num 0.8
-  ..$ hjust        : NULL
-  ..$ vjust        : NULL
-  ..$ angle        : NULL
-  ..$ lineheight   : NULL
-  ..$ margin       : NULL
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi TRUE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ axis.text.x                     :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : NULL
-  ..$ hjust        : NULL
-  ..$ vjust        : num 1
-  ..$ angle        : NULL
-  ..$ lineheight   : NULL
-  ..$ margin       : 'margin' num [1:4] 2.2points 0points 0points 0points
-  .. ..- attr(*, "unit")= int 8
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi TRUE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ axis.text.x.top                 :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : NULL
-  ..$ hjust        : NULL
-  ..$ vjust        : num 0
-  ..$ angle        : NULL
-  ..$ lineheight   : NULL
-  ..$ margin       : 'margin' num [1:4] 0points 0points 2.2points 0points
-  .. ..- attr(*, "unit")= int 8
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi TRUE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ axis.text.x.bottom              : NULL
- $ axis.text.y                     :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : NULL
-  ..$ hjust        : num 1
-  ..$ vjust        : NULL
-  ..$ angle        : NULL
-  ..$ lineheight   : NULL
-  ..$ margin       : 'margin' num [1:4] 0points 2.2points 0points 0points
-  .. ..- attr(*, "unit")= int 8
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi TRUE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ axis.text.y.left                : NULL
- $ axis.text.y.right               :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : NULL
-  ..$ hjust        : num 0
-  ..$ vjust        : NULL
-  ..$ angle        : NULL
-  ..$ lineheight   : NULL
-  ..$ margin       : 'margin' num [1:4] 0points 0points 0points 2.2points
-  .. ..- attr(*, "unit")= int 8
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi TRUE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ axis.text.theta                 : NULL
- $ axis.text.r                     :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : NULL
-  ..$ hjust        : num 0.5
-  ..$ vjust        : NULL
-  ..$ angle        : NULL
-  ..$ lineheight   : NULL
-  ..$ margin       : 'margin' num [1:4] 0points 2.2points 0points 2.2points
-  .. ..- attr(*, "unit")= int 8
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi TRUE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ axis.ticks                      : list()
-  ..- attr(*, "class")= chr [1:2] "element_blank" "element"
- $ axis.ticks.x                    : NULL
- $ axis.ticks.x.top                : NULL
- $ axis.ticks.x.bottom             : NULL
- $ axis.ticks.y                    : NULL
- $ axis.ticks.y.left               : NULL
- $ axis.ticks.y.right              : NULL
- $ axis.ticks.theta                : NULL
- $ axis.ticks.r                    : NULL
- $ axis.minor.ticks.x.top          : NULL
- $ axis.minor.ticks.x.bottom       : NULL
- $ axis.minor.ticks.y.left         : NULL
- $ axis.minor.ticks.y.right        : NULL
- $ axis.minor.ticks.theta          : NULL
- $ axis.minor.ticks.r              : NULL
- $ axis.ticks.length               : 'simpleUnit' num 2.75points
-  ..- attr(*, "unit")= int 8
- $ axis.ticks.length.x             : NULL
- $ axis.ticks.length.x.top         : NULL
- $ axis.ticks.length.x.bottom      : NULL
- $ axis.ticks.length.y             : NULL
- $ axis.ticks.length.y.left        : NULL
- $ axis.ticks.length.y.right       : NULL
- $ axis.ticks.length.theta         : NULL
- $ axis.ticks.length.r             : NULL
- $ axis.minor.ticks.length         : 'rel' num 0.75
- $ axis.minor.ticks.length.x       : NULL
- $ axis.minor.ticks.length.x.top   : NULL
- $ axis.minor.ticks.length.x.bottom: NULL
- $ axis.minor.ticks.length.y       : NULL
- $ axis.minor.ticks.length.y.left  : NULL
- $ axis.minor.ticks.length.y.right : NULL
- $ axis.minor.ticks.length.theta   : NULL
- $ axis.minor.ticks.length.r       : NULL
- $ axis.line                       : list()
-  ..- attr(*, "class")= chr [1:2] "element_blank" "element"
- $ axis.line.x                     : NULL
- $ axis.line.x.top                 : NULL
- $ axis.line.x.bottom              : NULL
- $ axis.line.y                     : NULL
- $ axis.line.y.left                : NULL
- $ axis.line.y.right               : NULL
- $ axis.line.theta                 : NULL
- $ axis.line.r                     : NULL
- $ legend.background               : list()
-  ..- attr(*, "class")= chr [1:2] "element_blank" "element"
- $ legend.margin                   : 'margin' num [1:4] 5.5points 5.5points 5.5points 5.5points
-  ..- attr(*, "unit")= int 8
- $ legend.spacing                  : 'simpleUnit' num 11points
-  ..- attr(*, "unit")= int 8
- $ legend.spacing.x                : NULL
- $ legend.spacing.y                : NULL
- $ legend.key                      : list()
-  ..- attr(*, "class")= chr [1:2] "element_blank" "element"
- $ legend.key.size                 : 'simpleUnit' num 1.2lines
-  ..- attr(*, "unit")= int 3
- $ legend.key.height               : NULL
- $ legend.key.width                : NULL
- $ legend.key.spacing              : 'simpleUnit' num 5.5points
-  ..- attr(*, "unit")= int 8
- $ legend.key.spacing.x            : NULL
- $ legend.key.spacing.y            : NULL
- $ legend.frame                    : NULL
- $ legend.ticks                    : NULL
- $ legend.ticks.length             : 'rel' num 0.2
- $ legend.axis.line                : NULL
- $ legend.text                     :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : 'rel' num 0.8
-  ..$ hjust        : NULL
-  ..$ vjust        : NULL
-  ..$ angle        : NULL
-  ..$ lineheight   : NULL
-  ..$ margin       : NULL
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi TRUE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ legend.text.position            : NULL
- $ legend.title                    :List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : NULL
-  ..$ hjust        : num 0
-  ..$ vjust        : NULL
-  ..$ angle        : NULL
-  ..$ lineheight   : NULL
-  ..$ margin       : NULL
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi TRUE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- $ legend.title.position           : NULL
- $ legend.position                 : chr "right"
- $ legend.position.inside          : NULL
- $ legend.direction                : NULL
- $ legend.byrow                    : NULL
- $ legend.justification            : chr "center"
- $ legend.justification.top        : NULL
- $ legend.justification.bottom     : NULL
- $ legend.justification.left       : NULL
- $ legend.justification.right      : NULL
- $ legend.justification.inside     : NULL
- $ legend.location                 : NULL
- $ legend.box                      : NULL
- $ legend.box.just                 : NULL
- $ legend.box.margin               : 'margin' num [1:4] 0cm 0cm 0cm 0cm
-  ..- attr(*, "unit")= int 1
- $ legend.box.background           : list()
-  ..- attr(*, "class")= chr [1:2] "element_blank" "element"
- $ legend.box.spacing              : 'simpleUnit' num 11points
-  ..- attr(*, "unit")= int 8
-  [list output truncated]
- - attr(*, "class")= chr [1:2] "theme" "gg"
- - attr(*, "complete")= logi TRUE
- - attr(*, "validate")= logi TRUE</code></pre>
-</div>
-</div>
-<p>As we can see, we can provide a line that can separate the two kinds of plant. This line is <strong>the decision boundary</strong>. So we’re able to develop a model, based on this line to predict the class of a new plant.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x1<span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">1.1</span>,<span class="fl">0.7</span>,<span class="dv">2</span>,<span class="fl">2.5</span>,<span class="fl">2.2</span>,<span class="fl">1.5</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>x2<span class="ot">=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="fl">2.1</span>,<span class="fl">2.6</span>,<span class="dv">1</span>,<span class="fl">0.7</span>,<span class="fl">0.3</span>,<span class="fl">0.5</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>y<span class="ot">=</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">2</span>), <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>Y<span class="ot">=</span><span class="fu">factor</span>(y)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(y,x1,x2)  ) </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data, <span class="fu">aes</span>(<span class="at">x =</span> x1, <span class="at">y =</span> x2)) <span class="sc">+</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Y), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>)) <span class="sc">+</span> </span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="fl">0.1</span>, <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span> <span class="co"># Boundary line</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Data separation"</span>, <span class="at">x =</span> <span class="st">"x1"</span>, <span class="at">y =</span> <span class="st">"x2"</span>) <span class="sc">+</span> </span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-ℹ Please use `linewidth` instead.</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>To de velop the model, we need to know the equation of the line that separate accuratly the two plants. To achieve this, we’ll develop a linear model by sending <strong>X1</strong> and <strong>X2</strong> to a neuron, adding a coefficient <strong>W</strong>, respectively <strong>W1</strong> and <strong>W2</strong> and what we call the bias <strong>b</strong>. It’ll lead us to :</p>
-<p><span class="math display">\[  z(X1,X2)= W1*X1 + W2*X2 + b   \]</span></p>
+<p>Using this dataset, we can develop and train a perceptron to distinguish between the two classes of plants based on their characteristics. This process will involve defining weights, thresholds, and iteratively updating these parameters to improve classification accuracy.</p>
 
 
 
