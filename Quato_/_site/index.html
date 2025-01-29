@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./D:/R_projet/NeuralR/Quato_/LOGO1.png" rel="icon" type="image/png">
+<link href="./D:/Disk D 145gb/R_projet/NeuralR/Quato_/LOGO1.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,6 +70,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -98,6 +127,10 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link" href="./index1.html"> 
 <span class="menu-text">Hands-on</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./index2.html"> 
+<span class="menu-text">K-means</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -154,7 +187,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Imagine a scenario where we have two types of plants that need to be classified into two categories:<br>
 - <strong>Toxic plants</strong>, represented by class 0<br>
 - <strong>Healthy plants</strong>, represented by class 1</p>
-<p>Each plant is characterized by two features, ( X_1 ) and ( X_2 ). The following table illustrates the dataset for this classification task:</p>
+<p>Each plant is characterized by two features, <span class="math inline">\(( X_1 )\)</span> and <span class="math inline">\(( X_2 )\)</span>. The following table illustrates the dataset for this classification task:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 15%">
@@ -165,8 +198,8 @@ ul.task-list li input[type="checkbox"] {
 <thead>
 <tr class="header">
 <th><strong>Plant</strong></th>
-<th>( X_1 ) (Feature 1)</th>
-<th>( X_2 ) (Feature 2)</th>
+<th><span class="math inline">\((X_1)\)</span> (Feature 1)</th>
+<th><span class="math inline">\((X_2)\)</span>(Feature 2)</th>
 <th><strong>Class</strong></th>
 </tr>
 </thead>

@@ -1,0 +1,6 @@
+---
+title: "K-means algo"
+---
+
+K -means clustering is one of the most commonly 
+used clustering algorithms for partitioning observations into a set of 𝑘 groups (i.e. 𝑘 clusters), where 𝑘 is pre-speciﬁed by the analyst. k -means, like other clustering algorithms, tries to classify observations into mutually exclusive groups (or clusters), such that observations within the same cluster are as similar as possible (i.e., high intra-class similarity), whereas observations from diﬀerent clusters are as dissimilar as possible (i.e., low inter-class similarity). In k -means clustering, each cluster is represented by its center (i.e, centroid) which corresponds to the mean of the observation values assigned to the cluster.

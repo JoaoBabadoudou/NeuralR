@@ -2,22 +2,28 @@ project:
   type: website
 
 website:
-
-     favicon: "D:/R_projet/NeuralR/Quato_/LOGO1.png"
-     title: "The Perceptron"
-     navbar:
-       left:
-       - href: index.qmd
-         text: Home
-       
-       -  href: index1.qmd
-          text: Hands-on
-       right : 
-        
-       -  href: https://github.com/JoaoBabadoudou
-          icon: github
-       - about.qmd  
-           
+  title: "ML for Dummies"
+  navbar:
+    left:
+      - href: index.qmd
+        text: 🏠 Home
+      - href: index1.qmd
+        text: ✏️ Hands-on
+      - href: index2.qmd
+        text: 📊 K-means
+    right:
+      - href: https://github.com/JoaoBabadoudou
+        icon: github
+      - href: about.qmd
+        text: ℹ️ About
+  sidebar:
+    style: "floating"
+    search: true
+    contents:
+      - index.qmd
+      - index1.qmd
+      - index2.qmd
+      - about.qmd
 
 format:
   html:
@@ -26,6 +32,11 @@ format:
       dark: darkly
     css: styles.css
     toc: true
-
-
-
+    toc-depth: 3
+    code-fold: true
+    code-tools: true
+    smooth-scroll: true
+    grid:
+      sidebar-width: 250px
+      body-width: 800px
+      margin-width: 300px

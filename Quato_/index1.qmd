@@ -6,7 +6,7 @@ Let's start with an example.
 
 Let's suppose that we have two kind of plant that we have to divide into two classes: **toxic** plants represented by class **0** and **healthy** plants represented by class **1**. Each plant has his characteristics **X1** and **X2**. The following table show us what it is about:
 
-| Y  |X1 | X2|
+| Y  |$(X_1)$ | $(X_2)$|
 |----|---|---|
 | 1  |0.5| 2 |
 | 1  |1.1|2.1|
@@ -42,21 +42,24 @@ data= data.frame(cbind(y,x1,x2)  )
 ggplot(data = data, aes(x = x1, y = x2)) +
   geom_point(aes(colour = Y), size = 3) + 
   scale_colour_manual(values = c("red", "green", "blue")) + 
-  geom_abline(slope = 1, intercept = 0.1, colour = "black", size = 1.2) + # Boundary line
+  geom_abline(slope = 0.9, intercept = 0.1, colour = "black", size = 1.2) + # Boundary line
   labs(title = "Data separation", x = "x1", y = "x2") + 
   theme_minimal()
 ```
 
+### The model
 
-To de velop the model, we need to know the equation of the line that separate accuratly the two plants. To achieve this, we'll develop a linear model by sending **X1** and **X2** to a neuron, adding a coefficient **W**, respectively **W1** and **W2** and what we call the bias **b**. It'll lead us to :
+To develop the model, we need to know the equation of the line that separate accuratly the two plants. To achieve this, we'll develop a linear model by sending **X1** and **X2** to a neuron, adding a coefficient **W**, respectively **W1** and **W2** and what we call the bias **b**. It'll lead us to :
 
 $$  z(X1,X2)= W1*X1 + W2*X2 + b   $$
 
 
 
-The boundary line is the value for which $$ Z(X_1,X_2)=0$$   So by posing $Z(X_1,X_2)=0$, we can find the expression of the equation of the boundary line.
-To predict a class for a new  plant, we have to  set the parameters $ W_1 $, $ W_2 $  and  $b$  to separe in the best way the two class and after that we will be able to send a new plant according to the sign of the $Z$ computed. 
+The boundary line is the value for which $Z(X_1,X_2)=0$   So by posing $Z(X_1,X_2)=0$, we can find the expression of the equation of the boundary line.
+To predict a class for a new  plant, we have to  set the parameters $W_1$, $W_2$  and  $b$  to separe in the best way the two class and after that we will be able to send a new plant according to the sign of the $Z$ computed. 
 Now, to improve this model, one of the best thing that we can do is to add probabilities. The further the plant is from the line, the greater the chance that it belongs to this class. In this context, we use an **activation function** that returns a value close to 0 or 1 as we move away from the line. Generally we use the sigmoiid fonction.
+
+### The sigmoid
 
 The **sigmoid function** is one of the most common activation functions in artificial neural networks, especially in simpler or shallow models. It maps any real-valued number to a range between **0 and 1**, making it particularly useful for binary classification problems.
 
@@ -97,7 +100,7 @@ ggplot(data, aes(x = x, y = y)) +
 ```
 
 
-**Defining the Cost Function**
+### The Cost Function
 
 To find the best model, we need to minimize the error between the predictions and the real values. This process involves using the sigmoid function to derive probabilities, leveraging the Bernoulli probability function, and defining the likelihood and log-likelihood functions, that we call the log-loss function which is defined as
 $$\ell(W_1, W_2, b) = -1/n[\sum_{i=1}^n \left[ Y_i \cdot \log(a(z_i)) + (1 - Y_i) \cdot \log(1 - a(z_i)) \right]]$$
@@ -189,7 +192,7 @@ In fact, this is the prduct of probability
 
 $L= 0.8320184 * 0.7502601 * 0.8807971 * 0.2890505 * 0.1544653 * 0.1418511$
 
-Let's remark that the likelihood is very low. Can we really deduce that the model is'nt likely. Imagine that we have more than 10000 lines. The product of all the probability can lead to a number extremely close to 0, at some point, the machine will no longer be able to store the value.
+Let's remark that the likelihood is very low. Can we really deduce that the model is'nt likely?. Imagine that we have more than 10000 lines. The product of all the probability can lead to a number extremely close to 0, at some point, the machine will no longer be able to store the value.
 That's why we use the log-likelihood.
 
 **Log-Likelihood Function**
@@ -246,7 +249,7 @@ grid.arrange(likelihood_plot, log_likelihood_plot, ncol = 2)
 ```
 
 Generally, it can be a little bit difficult to maximise a mathematical  function. So by multiplying the log like lihood by (-), our aim will be the minimisation of the loglikelihood function .
-$maximising f(x)$ is equal to $minimise -f(x)$
+maximising $f(x)$ is equal to minimise $-f(x)$
 
 
 
@@ -288,9 +291,9 @@ data <- data.frame(
 # Create the plot
 ggplot(data, aes(x = mu)) +
   geom_line(aes(y = log_likelihood), color = "blue", size = 1.2, linetype = "solid") +
-  geom_line(aes(y = negative_log_likelihood), color = "red", size = 1.2, linetype = "dashed") +
+  geom_line(aes(y = negative_log_likelihood), color = "black", size = 1.2, linetype = "dashed") +
   geom_point(aes(x = max_mu, y = max_log_likelihood), color = "blue", size = 4, shape = 19) +
-  geom_point(aes(x = min_mu, y = min_negative_log_likelihood), color = "red", size = 4, shape = 19) +
+  geom_point(aes(x = min_mu, y = min_negative_log_likelihood), color = "black", size = 4, shape = 19) +
   annotate("text", x = max_mu, y = max_log_likelihood, label = "Max Log-Likelihood", vjust = -1, color = "blue") +
   annotate("text", x = min_mu, y = min_negative_log_likelihood, label = "Min -Log-Likelihood", vjust = 1.5, color = "red") +
   labs(title = "Log-Likelihood and Negative Log-Likelihood Functions",
@@ -306,5 +309,133 @@ $$\ell(W_1, W_2, b) = -1/n[\sum_{i=1}^n \left[ Y_i \cdot \log(a(z_i)) + (1 - Y_i
 
 And there you have it, you now know where cost fomction comes from. Now we're going to use the cost funcion to minimise the errors of the model, using the **Gradient descent**.
 
-**Gradient descent**
+### **Gradient descent**
 
+Gradient Descent is an optimization algorithm used to minimize a function by iteratively moving towards the minimum value of the function. In machine learning, this function is typically the cost function (or loss function), which measures how well the model is performing. The goal of gradient descent is to find the parameters (e.g., weights in a linear regression model) that minimize this cost function.
+
+
+Let's be   $∇J(θ) =\ell(W_1, W_2, b)$
+
+
+The gradient is the vector of partial derivatives of the cost function with respect to each parameter.
+
+It points in the direction of the steepest ascent of the function. To minimize the function, we move in the opposite direction of the gradient. There is a hyperparameter that controls the step size of each iteration, this is the Learning Rate (α):
+**Too small**: Slow convergence.
+
+**Too large**: Risk of overshooting the minimum.
+
+Update Rule:
+
+The parameters are updated iteratively using the formula:
+$$θ_j = θ_j - α * (∂J(θ)/∂θ_j)$$
+
+This is repeated until convergence (i.e., when the change in the cost function is very small).
+
+Let's define this function for our data and try to visualise the learning with a 3D plot.
+
+```{r , echo=FALSE, warning=FALSE, message=FALSE}
+
+library(ggplot2)
+library(gganimate)
+library(plotly)
+library(dplyr)
+
+# Data
+x1 <- c(0.5,1.1,0.7,2,2.5,2.2)
+x2 <- c(2,2.1,2.6,1,0.7,0.3)
+y <- factor(c(1,1,1,0,0,0), levels=c(0,1))
+data <- data.frame(y, x1, x2)
+# Sigmoid function
+sigmoid <- function(z) {
+  return(1 / (1 + exp(-z)))
+}
+
+# Logistic loss function
+logistic_loss <- function(W, data) {
+  z <- W[1] * data$x1 + W[2] * data$x2 + W[3]
+  a <- sigmoid(z)
+  y <- as.numeric(as.character(data$y))  # Convert factor to numeric
+  loss <- -mean(y * log(a) + (1 - y) * log(1 - a))
+  return(loss)
+}
+
+# Gradient Descent
+gradient_descent <- function(data, lr = 0.1, epochs = 50) {
+  W <- c(runif(1), runif(1), runif(1))  # Random initialization
+  history <- data.frame(iter = integer(), W1 = numeric(), W2 = numeric(), b = numeric(), loss = numeric())
+  
+  for (i in 1:epochs) {
+    z <- W[1] * data$x1 + W[2] * data$x2 + W[3]
+    a <- sigmoid(z)
+    y <- as.numeric(as.character(data$y))
+    
+    # Compute gradients
+    dW1 <- mean((a - y) * data$x1)
+    dW2 <- mean((a - y) * data$x2)
+    db  <- mean(a - y)
+    
+    # Update parameters
+    W[1] <- W[1] - lr * dW1
+    W[2] <- W[2] - lr * dW2
+    W[3] <- W[3] - lr * db
+    
+    # Store history
+    history <- rbind(history, data.frame(iter = i, W1 = W[1], W2 = W[2], b = W[3], loss = logistic_loss(W, data)))
+  }
+  
+  return(history)
+}
+
+# Run Gradient Descent
+history <- gradient_descent(data, lr = 0.10, epochs = 50)
+
+
+# Generate 3D Loss Function Surface
+W1_seq <- seq(-3, 3, length.out = 30)
+W2_seq <- seq(-3, 3, length.out = 30)
+grid <- expand.grid(W1 = W1_seq, W2 = W2_seq)
+grid$Loss <- apply(grid, 1, function(w) logistic_loss(c(w[1], w[2], 0), data))
+
+# Create 3D Loss Function Plot
+loss_plot <- plot_ly(x = grid$W1, y = grid$W2, z = grid$Loss, type = "mesh3d", colorscale = "Viridis") %>%
+  layout(scene = list(xaxis = list(title = "W1"),
+                      yaxis = list(title = "W2"),
+                      zaxis = list(title = "Loss Function")))
+
+# Add Gradient Descent Path
+loss_plot <- loss_plot %>%
+  add_trace(x = history$W1, y = history$W2, z = history$loss, type = "scatter3d", mode = "lines+markers",
+            marker = list(size = 4, color = "red"), line = list(width = 5, color = "red"))
+
+# Show the 3D animated plot
+loss_plot
+
+```
+
+In red, we can see all the point that the algo goes through. Don't forget that we want the minimum of ths function. The function seems to be convexe. Let's extract the parameters corresponding to the min lost.
+
+```{r}
+min_lost <- history[which.min(history$loss), ]
+print(min_lost)
+```
+
+
+Using this process the final line can be adjust like this
+
+```{r}
+# Generate Decision Boundaries Over Iterations
+animated_plot <- ggplot() +
+  geom_point(data = data, aes(x = x1, y = x2, color = y), size = 3) +
+  transition_time(history$iter) +
+  labs(title = "Iteration: {frame_time}", x = "X1", y = "X2") +
+  geom_abline(data = history, aes(intercept = -b/W2, slope = -W1/W2), color = "black")
+
+# Animate
+animate(animated_plot, nframes = 50, fps = 10, duration = 15)
+
+```
+
+Now to classify new data, we just have to compute the probability associated using the value of the variable and the parameters  computed. If the probability is greater than 0.5, the new data belongs to the class 1, otherwise, it belongs to the class 0
+
+
+Thank you for yor attention. I hope it was helpful!!!!!!!!

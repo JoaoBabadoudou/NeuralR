@@ -14,9 +14,9 @@ Imagine a scenario where we have two types of plants that need to be classified 
 - **Toxic plants**, represented by class 0  
 - **Healthy plants**, represented by class 1  
 
-Each plant is characterized by two features, \( X_1 \) and \( X_2 \). The following table illustrates the dataset for this classification task:
+Each plant is characterized by two features, $( X_1 )$ and $( X_2 )$. The following table illustrates the dataset for this classification task:
 
-| **Plant** | \( X_1 \) (Feature 1) | \( X_2 \) (Feature 2) | **Class** |
+| **Plant** | $(X_1)$  (Feature 1) | $(X_2)$(Feature 2) | **Class** |
 |-----------|------------------------|------------------------|-----------|
 | Plant 1   | Value                 | Value                 | 0         |
 | Plant 2   | Value                 | Value                 | 1         |
