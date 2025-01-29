@@ -4,6 +4,7 @@ project:
 website:
   title: "ML for Dummies"
   navbar:
+    logo: images/logo.png  # Ajoutez votre logo ici
     left:
       - href: index.qmd
         text: 🏠 Home
@@ -20,17 +21,21 @@ website:
     style: "floating"
     search: true
     contents:
-      - index.qmd
-      - index1.qmd
-      - index2.qmd
-      - about.qmd
+      - href: index.qmd
+        text: 🏠 Home
+      - href: index1.qmd
+        text: ✏️ Hands-on
+      - href: index2.qmd
+        text: 📊 K-means
+      - href: about.qmd
+        text: ℹ️ About
 
 format:
   html:
     theme:
-      light: flatly
-      dark: darkly
-    css: styles.css
+      light: minty  # Design plus moderne et épuré
+      dark: superhero
+    css: styles.css  # Fichier CSS personnalisé
     toc: true
     toc-depth: 3
     code-fold: true
@@ -38,5 +43,5 @@ format:
     smooth-scroll: true
     grid:
       sidebar-width: 250px
-      body-width: 800px
+      body-width: 850px  # Un peu plus large pour un meilleur affichage
       margin-width: 300px

@@ -11,9 +11,9 @@ Let's suppose that we have two kind of plant that we have to divide into two cla
 | 1  |0.5| 2 |
 | 1  |1.1|2.1|
 | 1  |0.7|2.6|
-| 1  |2  | 1 |
-| 1  |2.5|0.7|
-| 1  |2.2|0.3|
+| 0  |2  | 1 |
+| 0  |2.5|0.7|
+| 0  |2.2|0.3|
 
 Let' us have a better look with a graphic
 
@@ -439,3 +439,29 @@ Now to classify new data, we just have to compute the probability associated usi
 
 
 Thank you for yor attention. I hope it was helpful!!!!!!!!
+
+
+
+
+
+
+
+
+<button id="back-to-top" onclick="scrollToTop()">⬆️</button>
+
+<script>
+  window.onscroll = function() { scrollFunction() };
+
+  function scrollFunction() {
+    let button = document.getElementById("back-to-top");
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      button.style.display = "block";
+    } else {
+      button.style.display = "none";
+    }
+  }
+
+  function scrollToTop() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+</script>
