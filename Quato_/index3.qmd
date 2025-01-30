@@ -1,0 +1,23 @@
+---
+title: "KNN"
+---
+
+KNN makes predictions using the training dataset directly. Predictions are made for a new data point by searching through the entire training set for the K most similar instances (the neighbors) and summarizing the output variable for those K instances. For regression this might be the mean output variable, in classiﬁcation this might be the mode (or most common) class value. To determine which of the K instances in the training dataset are most similar to a new input a distance measure is used. For real-valued input variables, the most popular distance measure is Euclidean distance. Euclidean distance is calculated as the square root of the sum of the squared diﬀerences between a point a and point b across all input attributes i
+
+Other popular distance measures include:
+
+Hamming Distance: Calculate the distance between binary vectors.  Manhattan Distance: Calculate the distance between real vectors using the sum of their absolute diﬀerence. Also called City Block Distance.  Minkowski Distance: Generalization of Euclidean and Manhattan distance
+
+There are many other distance measures that can be used, such as Tanimoto, Jaccard, Mahalanobis and cosine distance. You can choose the best distance metric based on the properties of your data. If you are unsure, you can experiment with diﬀerent distance metrics and diﬀerent values of K together and see which mix results in the most accurate models. Euclidean is a good distance measure to use if the input variables are similar in type (e.g. all measured widths and heights). Manhattan distance is a good measure to use if the input variables are not similar in type (such as age, gender, height, etc.). The value for K can be found by algorithm tuning. It is a good idea to try many diﬀerent values for K (e.g. values from 1 to 21) and see what works best for your problem. The computational complexity of KNN increases with the size of the training dataset. For very large training sets, KNN can be made stochastic by taking a sample from the training dataset from which to calculate the K-most similar instances. KNN has been around for a long time and has been very well studied. As such, diﬀerent disciplines have diﬀerent names for it, for example
+
+-   **Instance-Based Learning**: The raw training instances are used to make predictions. As such KNN is often referred to as instance-based learning or a case-based learning (where each training instance is a case from the problem domain).
+
+-   **Lazy Learning**: No learning of the model is required and all of the work happens at the time a prediction is requested. As such, KNN is often referred to as a lazy learning algorithm.
+
+-   **Nonparametric**: KNN makes no assumptions about the functional form of the problem being solved. As such KNN is referred to as a nonparametric machine learning algorithm.
+
+```         
+KNN can be used for regression and classiﬁcation problems.
+```
+
+When KNN is used for regression problems the prediction is based on the mean or the median of the K-most similar instances.

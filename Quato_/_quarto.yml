@@ -4,12 +4,12 @@ project:
 website:
   title: "ML for Dummies"
   navbar:
-    logo: images/logo.png  # Ajoutez votre logo ici
+    logo: LOGO1.png  # Ajoutez votre logo ici
     left:
       - href: index.qmd
         text: 🏠 Home
       - href: index1.qmd
-        text: ✏️ Hands-on
+        text: ✏️ The perceptron
       - href: index2.qmd
         text: 📊 K-means
     right:
@@ -27,6 +27,8 @@ website:
         text: ✏️ Hands-on
       - href: index2.qmd
         text: 📊 K-means
+      - href: index3.qmd
+        text: KNN
       - href: about.qmd
         text: ℹ️ About
 
@@ -34,7 +36,7 @@ format:
   html:
     theme:
       light: minty  # Design plus moderne et épuré
-      dark: superhero
+      dark: cyborg
     css: styles.css  # Fichier CSS personnalisé
     toc: true
     toc-depth: 3

@@ -2,5 +2,210 @@
 title: "K-means algo"
 ---
 
-K -means clustering is one of the most commonly 
-used clustering algorithms for partitioning observations into a set of 𝑘 groups (i.e. 𝑘 clusters), where 𝑘 is pre-speciﬁed by the analyst. k -means, like other clustering algorithms, tries to classify observations into mutually exclusive groups (or clusters), such that observations within the same cluster are as similar as possible (i.e., high intra-class similarity), whereas observations from diﬀerent clusters are as dissimilar as possible (i.e., low inter-class similarity). In k -means clustering, each cluster is represented by its center (i.e, centroid) which corresponds to the mean of the observation values assigned to the cluster.
+K -means clustering is one of the most commonly used clustering algorithms for partitioning observations into a set of 𝑘 groups (i.e. 𝑘 clusters), where 𝑘 is pre-speciﬁed by the analyst. k -means, like other clustering algorithms, tries to classify observations into mutually exclusive groups (or clusters), such that observations within the same cluster are as similar as possible (i.e., high intra-class similarity), whereas observations from diﬀerent clusters are as dissimilar as possible (i.e., low inter-class similarity). In k -means clustering, each cluster is represented by its center (i.e, centroid) which corresponds to the mean of the observation values assigned to the cluster.
+
+
+### Mathematical Formulation
+The K-Means algorithm partitions a dataset into 
+$k$ clusters by minimizing the variance within each cluster. Given a dataset $𝑋={𝑥_1,𝑥_2,…,𝑥_𝑛}$  with $𝑛$  observations, the objective function of K-Means ( within-cluster sum of squares (WCSS)) is:
+$J = \sum_{i=1}^{K} \sum_{x \in C_i} \| x - \mu_i \|^2$
+where:
+
+$𝐶_𝑖$ represents the $𝑖^{𝑡ℎ}$ cluster, $𝜇_𝑖$ is the centroid of cluster 𝑖, computed as:
+$\mu_i = \frac{1}{|C_i|} \sum_{x \in C_i} x$
+
+$\| x - \mu_i \|^2 = \sum_{j=1}^{d} (x_j - \mu_{ij})^2$  is the Euclidean distance between a point and its cluster centroid, where 
+𝑑 is the number of dimensions in the dataset.
+
+### Steps of the  Algorithm
+
+**Step 1: Initialize centroid**
+Randomly select k data points as initial centroids.
+
+**Step 2: Assign data points to clusters**
+Assign each data point x to the nearest centroid:
+
+$C_i = \{x:∥x−μ_i∥{2} ≤∥x−μ_j∥^{2}for\ all\ j\} $
+
+**Step 3: Update centroids**
+Recompute the centroids as the mean of all points in the cluster:
+$\mu_i = \frac{1}{|C_i|} \sum_{x \in C_i} x$
+
+**Step 4: Repeat**
+Repeat Steps 2 and 3 until the centroids no longer change significantly.
+
+
+### Exemple
+Let's try it with r 
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+# Load necessary libraries
+library(ggplot2)
+library(gganimate)
+library(dplyr)
+
+# Generate synthetic data
+set.seed(100)
+n <- 100
+data <- data.frame(
+  x = c(rnorm(n, mean = 2, sd = 1), rnorm(n, mean = 5, sd = 1),rnorm(n, mean = 7, sd = 1)),
+  y = c(rnorm(n, mean = 2, sd = 1), rnorm(n, mean = 5, sd = 1),rnorm(n, mean = 7, sd = 1))
+)
+
+# K-Means Algorithm
+kmeans_custom <- function(data, k, max_iters = 10) {
+  # Step 1: Initialize centroids randomly
+  centroids <- data[sample(1:nrow(data), k), ]
+  history <- list()  # To store centroids and cluster assignments at each iteration
+  
+  for (iter in 1:max_iters) {
+    # Step 2: Assign data points to the nearest centroid
+    distances <- as.matrix(dist(rbind(data, centroids)))[1:nrow(data), (nrow(data) + 1):(nrow(data) + k)]
+    clusters <- apply(distances, 1, which.min)
+    
+    # Step 3: Update centroids
+    new_centroids <- data %>%
+      mutate(cluster = clusters) %>%
+      group_by(cluster) %>%
+      summarize(across(everything(), mean)) %>%
+      select(-cluster)
+    
+    # Store history for animation
+    history[[iter]] <- list(
+      centroids = centroids,
+      clusters = clusters
+    )
+    
+    # Check for convergence
+    if (all(centroids == new_centroids)) {
+      break
+    }
+    
+    centroids <- new_centroids
+  }
+  
+  return(list(centroids = centroids, history = history))
+}
+
+# Run K-Means
+k <- 3
+result <- kmeans_custom(data, k)
+
+# Prepare data for animation
+animation_data <- data.frame()
+for (iter in 1:length(result$history)) {
+  iter_data <- data %>%
+    mutate(
+      cluster = result$history[[iter]]$clusters,
+      iteration = iter,
+      type = "data"  # Label for data points
+    )
+  centroids_data <- result$history[[iter]]$centroids %>%
+    mutate(
+      cluster = 1:k,
+      iteration = iter,
+      type = "centroid"  # Label for centroids
+    )
+  animation_data <- rbind(animation_data, iter_data, centroids_data)
+}
+
+
+# Create the animation
+p <- ggplot(animation_data, aes(x = x, y = y, color = as.factor(cluster), shape = type, size = type)) +
+  geom_point() +
+  scale_shape_manual(values = c("data" = 19, "centroid" = 17)) +  # Data points as circles, centroids as crosses
+  scale_size_manual(values = c("data" = 3, "centroid" = 10)) +    # Larger size for centroids
+  scale_color_manual(values = c("1" = "#68228B", "2" = "#00C5CD", "3" = "#006400", "4" = "purple"))+ # Cluster colors
+  labs(title = 'K-Means Clustering: Iteration {frame_time}', x = 'x', y = 'y') +
+  transition_time(iteration) +
+  ease_aes('linear')
+
+# Render the animation
+animate(p, nframes = length(result$history), fps = 2, width = 600, height = 400)
+
+```
+
+Now, how the k is choosen?
+
+### Choice of the k
+
+#### Elbow Method
+This method evaluates the Within-Cluster Sum of Squares (WCSS) and looks for an "elbow point" in the curve.
+
+$ WCSS = \sum_{i=1}^{K} \sum_{x \in C_i} \| x - \mu_i \|^2$
+
+We plot the WCSS against 𝑘 and we find the point where the curve decrease slows down significantly (the "elbow").The corresponding 𝑘 is the optimal number of clusters.
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+# Load necessary libraries
+library(ggplot2)
+
+# Generate synthetic data
+set.seed(123)
+n <- 100
+data <- data.frame(
+  x = c(rnorm(n, mean = 2, sd = 1), rnorm(n, mean = 6, sd = 1)),
+  y = c(rnorm(n, mean = 2, sd = 1), rnorm(n, mean = 6, sd = 1))
+)
+
+# Function to compute WCSS for a given k
+compute_wcss <- function(data, k) {
+  kmeans_result <- kmeans(data, centers = k, nstart = 10)
+  return(kmeans_result$tot.withinss)
+}
+
+# Elbow Method
+elbow_method <- function(data, max_k = 10) {
+  wcss_values <- sapply(1:max_k, function(k) compute_wcss(data, k))
+  elbow_data <- data.frame(k = 1:max_k, WCSS = wcss_values)
+  
+  # Plot the elbow curve
+  ggplot(elbow_data, aes(x = k, y = WCSS)) +
+    geom_line(color = "blue") +
+    geom_point(color = "red") +
+    labs(title = "Elbow Method", x = "Number of Clusters (k)", y = "WCSS") +
+    theme_minimal()
+}
+
+# Run the Elbow Method
+elbow_method(data)
+```
+
+### Silhouette Method
+
+
+The Silhouette Score measures how similar a data point is to its own cluster compared to other clusters. For a data point x, the Silhouette Score s(x) is:
+
+$S(x) = \frac{b(x)- a(x)}{max(a(x), b(x))} $
+,where:
+**a(x)**: Average distance between x and all other points in the same cluster.
+
+**b(x)**: Average distance between x and all points in the nearest neighboring cluster.
+
+The optimal **k** is the one that maximizes the average Silhouette Score.
+
+```{r}
+# Load necessary libraries
+library(cluster)
+
+# Silhouette Method
+silhouette_method <- function(data, max_k = 10) {
+  avg_silhouette <- numeric(max_k)
+  
+  for (k in 2:max_k) {
+    kmeans_result <- kmeans(data, centers = k, nstart = 10)
+    silhouette_score <- silhouette(kmeans_result$cluster, dist(data))
+    avg_silhouette[k] <- mean(silhouette_score[, 3])
+  }
+  
+  silhouette_data <- data.frame(k = 1:max_k, Avg_Silhouette = avg_silhouette)
+  
+  # Plot the Silhouette Scores
+  ggplot(silhouette_data, aes(x = k, y = Avg_Silhouette)) +
+    geom_line(color = "blue") +
+    geom_point(color = "red") +
+    labs(title = "Silhouette Method", x = "Number of Clusters (k)", y = "Average Silhouette Score") +
+    theme_minimal()
+}
+
+# Run the Silhouette Method
+silhouette_method(data)
+```

@@ -1,26 +1,36 @@
 ---
-title: "The perceptron"
+title: "ML for Dummies"
+format: html
 ---
 
-The perceptron is a foundational building block in the fields of artificial intelligence and machine learning. First introduced by Frank Rosenblatt in 1958, it represents one of the earliest and simplest models for supervised learning in neural networks. The perceptron is inspired by the functioning of biological neurons, using mathematical computations to categorize data into one of two distinct classes. Though limited in its ability to handle only linearly separable data, this model has had a lasting impact, paving the way for more advanced architectures, such as multi-layer perceptrons, which can address non-linear problems and are widely used today.
+<div style="text-align: center; padding: 50px;">
+  <h1 style="font-size: 3rem; font-weight: bold;">Welcome to <span style="color: #007acc;">ML for Dummies</span> 🚀</h1>
+  <p style="font-size: 1.5rem; color: #555; max-width: 800px; margin: auto;">
+    Discover the basics of Machine Learning explained simply, with practical implementations in R.
+  </p>
+  <a href="index1.qmd" style="display: inline-block; padding: 15px 30px; font-size: 1.2rem; background-color: #007acc; color: white; border-radius: 10px; text-decoration: none; margin-top: 20px;">
+    Get Started ➜
+  </a>
+</div>
 
-At its essence, the perceptron functions as a basic decision-making mechanism. It receives input signals—representing features of the data—applies weights to these inputs, calculates their weighted sum, and processes this sum through an activation function. If the result surpasses a predefined threshold, the perceptron "fires," producing an output of 1; otherwise, it outputs 0. This characteristic makes the perceptron particularly suitable for binary classification tasks.
+<hr>
 
-To better understand the perceptron, let’s consider building a simple neural network in **R**, starting with this fundamental unit. We'll also review some essential mathematical concepts as we proceed.
+## 🌟 Why this site?
 
- **Example: Classifying Plants**
+- **Simplified Learning**: Concepts explained in an accessible way.
+- **R Code**: Each concept is accompanied by an implementation in R.
+- **Interactive Visuals**: Graphs and animations to enhance understanding.
 
-Imagine a scenario where we have two types of plants that need to be classified into two categories:  
-- **Toxic plants**, represented by class 0  
-- **Healthy plants**, represented by class 1  
+## 📚 Site Content
 
-Each plant is characterized by two features, $( X_1 )$ and $( X_2 )$. The following table illustrates the dataset for this classification task:
+- 🏠 [Home](index.qmd)  
+- ✏️ [Hands-on](index1.qmd)  
+- 📊 [K-Means Explained](index2.qmd)  
+- ℹ️ [About](about.qmd)  
 
-| **Plant** | $(X_1)$  (Feature 1) | $(X_2)$(Feature 2) | **Class** |
-|-----------|------------------------|------------------------|-----------|
-| Plant 1   | Value                 | Value                 | 0         |
-| Plant 2   | Value                 | Value                 | 1         |
-| ...       | ...                   | ...                   | ...       |
-
-Using this dataset, we can develop and train a perceptron to distinguish between the two classes of plants based on their characteristics. This process will involve defining weights, thresholds, and iteratively updating these parameters to improve classification accuracy. 
-
+<div style="text-align: center; margin-top: 50px;">
+  <p style="font-size: 1.2rem;">Follow me on GitHub for more projects:</p>
+  <a href="https://github.com/JoaoBabadoudou" target="_blank">
+    <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="50">
+  </a>
+</div>
